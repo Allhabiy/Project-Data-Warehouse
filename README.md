@@ -29,6 +29,34 @@ artist_id, name, location, lattitude, longitude
 **time_dim** - timestamps of records in songplays broken down into specific units
 start_time, hour, day, week, month, year, weekday
 
+### HOW TO use
+Project has two scripts:
+
+* create_tables.py: This script drops existing tables and creates new ones.
+* etl.py: This script uses data in s3:/udacity-dend/song_data and s3:/udacity-dend/log_data, processes it, and inserts the processed data into DB.
+
+### Run create_tables.py
+Type to command line:
+
+### python3 create_tables.py
+
+* All tables are dropped.
+* New tables are created: 2x staging tables + 4x dimensional tables + 1x fact table.
+* Output: Script writes "Tables dropped successfully" and "Tables created successfully" if all tables were dropped and created without errors.
+
+### Run etl.py
+Type to command line:
+
+python3 etl.py
+
+* Script executes AWS Redshift COPY commands to insert source data (JSON files) to DB staging tables.
+* From staging tables, data is further inserted to analytics tables.
+* Script writes to console the query it's executing at any given time and if the query was successfully executed.
+* In the end, script tells if whole ETL-pipeline was successfully executed.
+Output: raw data is in staging_tables + selected data in analytics tables.
+
+
+
 ### AWS Redshift set-up
 AWS Redshift is used in ETL pipeline as the DB solution. Used set-up in the Project-3 is as follows:
 
